@@ -29,7 +29,10 @@ def main(request):
                 # TODO: No repeated names
                 wallet_name = new_wallet.cleaned_data.get('name')
                 credit_card_number = new_wallet.cleaned_data.get('credit_card_number')
-                w = IndividualWallet.objects.create(name=wallet_name, user=request.user, value=0)
+                description = new_wallet.cleaned_data.get('description')
+                if description is None or description == "":
+                    description = "Add a description for your Wallet!"
+                w = IndividualWallet.objects.create(name=wallet_name, user=request.user, value=0, description=description)
                 w.save()
                 individual_wallets = IndividualWallet.objects.filter(user=request.user)
             else:
@@ -41,7 +44,10 @@ def main(request):
                 # TODO: No repeated names
                 clan_name = new_clan.cleaned_data.get('name')
                 public = new_clan.cleaned_data.get('public')
-                c = Clan.objects.create(name=clan_name, public=public)
+                description = new_clan.cleaned_data.get('description')
+                if description is None or description == "":
+                    description = "Add a description for your Clan!"
+                c = Clan.objects.create(name=clan_name, public=public, description=description)
                 c.save()
                 c.members.add(request.user)
                 c.save()
@@ -139,6 +145,7 @@ def clan(request, cslug):
     topup_clan_wallet = ClanWalletTopupForm(request.user)
     withdraw_clan_wallet = ClanWalletWithdrawForm(request.user)
     new_clan_wallet = NewClanWalletForm
+    add_member = AddClanMemberForm
 
     if request.method == "POST":
 
@@ -154,6 +161,16 @@ def clan(request, cslug):
 
             else:
                 pass
+
+        if "submit-new-member" in request.POST:
+            add_member = AddClanMemberForm(request.POST)
+            if add_member.is_valid():
+                username = add_member.cleaned_data.get('username')
+                member = User.objects.get(username=username)
+                current_clan.members.add(member)
+                current_clan.save()
+            else:
+                pass
     
     for cw in clan_wallets:
         if ClanWalletAdmin.objects.filter(clanwallet=cw).filter(user=request.user).exists():
@@ -166,6 +183,7 @@ def clan(request, cslug):
         'current_clan': current_clan,
         'clan_members': current_clan.members.all(),
         'clan_wallets': clan_wallets,
+        'add_member': add_member,
         'topup_clan_wallet': topup_clan_wallet,
         'withdraw_clan_wallet': withdraw_clan_wallet,
         'new_clan_wallet': new_clan_wallet,

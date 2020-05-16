@@ -36,6 +36,7 @@ class IndividualWallet(models.Model):
     name = models.CharField(max_length=200)
     value = models.FloatField(null=True)
     slug = models.CharField(max_length=200, null=True)
+    description = models.TextField(null=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -58,6 +59,7 @@ class Clan(models.Model):
     public = models.BooleanField()
     members = models.ManyToManyField(User)
     slug = models.CharField(max_length=200, null=True)
+    description = models.TextField(null=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)

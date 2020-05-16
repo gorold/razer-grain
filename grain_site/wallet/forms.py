@@ -26,12 +26,12 @@ class NewIndividualWalletForm(ModelForm):
     credit_card_number = forms.CharField(label='Credit Card Number', max_length=16, validators=[numerals], required=True)
     class Meta:
         model = IndividualWallet
-        fields = ['name', 'credit_card_number']
+        fields = ['name', 'credit_card_number', 'description']
 
 class NewClanForm(ModelForm):
     class Meta:
         model = Clan
-        fields = ['name', 'public']
+        fields = ['name', 'public', 'description']
 
 class JoinClanForm(Form):
     name = forms.ModelChoiceField(queryset=Clan.objects.none(), label='Public Clans')
@@ -40,6 +40,9 @@ class JoinClanForm(Form):
         super(JoinClanForm, self).__init__(*args, **kwargs)
         qs = Clan.objects.filter(public=True)
         self.fields['name'].queryset = qs
+
+class AddClanMemberForm(Form):
+    username = forms.CharField(max_length=200)
 
 class TopupForm(Form):
     value = forms.FloatField(min_value=0)

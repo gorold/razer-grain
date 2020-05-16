@@ -19,12 +19,14 @@
       <div class="card">
         <div class="card-header">
 
-
           <!-- IF IS PRIVATE WALLET DO THIS -->
+          {% if current_clan.public %}
+          {% else %}
           <div class=" float-right">
-              <button class="btn btn-success" type="button" data-toggle="modal" data-target="#">
+              <button class="btn btn-success" type="button" data-toggle="modal" data-target="#addMembersModal">
                 Add Members</button>
             </div>
+          {% endif %}
 
 
             
@@ -40,8 +42,8 @@
         <div class="card-body">
           <div class="tab-content" id="cardPillContent">
             <div class="tab-pane fade show active" id="overviewPill" role="tabpanel" aria-labelledby="overview-pill">
-              <h5 class="card-title">The Kopi Kakis Clan</h5>
-              <p class="card-text">The Kopi Kakis community allows our members to pool funds for common spending goal, save up for a group vacation, or crowdfund our community goals. Various saving and spending wallets help to manage the community's finances. Lending wallets also allow individuals in the community to request for microloans from fellow members in times of need.
+              <h5 class="card-title">{{current_clan.name}}</h5>
+              <p class="card-text">{{current_clan.description}}
               </p>
             </div>
             <div class="tab-pane fade" id="examplePill" role="tabpanel" aria-labelledby="example-pill">
@@ -316,6 +318,28 @@
           {{ new_clan_wallet.as_p }}
           <button name="submit-new-clan-wallet" class="btn btn-success btn-user btn-block"
             type="submit">Create!</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add New Member -->
+<div class="modal fade" id="addMembersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Add a new member to the Clan!</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST">
+          {% csrf_token %}
+          {{ add_member.as_p }}
+          <button name="submit-new-member" class="btn btn-success btn-user btn-block"
+            type="submit">Add!</button>
         </form>
       </div>
     </div>
