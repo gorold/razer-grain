@@ -28,20 +28,16 @@
         <div class="card-body">
           <div class="tab-content" id="cardPillContent">
             <div class="tab-pane fade show active" id="overviewPill" role="tabpanel" aria-labelledby="overview-pill">
-              <h5 class="card-title">Lev Vlassenko</h5>
-              <p class="card-text">Lev Vlassenko was born on 24 December 1928 in Tiflis, Georgian SSR, Soviet Union to
-                Nikolai Appolonovich Vlassenko and Vera Solomonovna Benditskaya.
+              <h5 class="card-title">Red Talons Clan</h5>
+              <p class="card-text">The Red Talons is a Loyalist Space Marine Chapter and a Second Founding Successor Chapter of the Iron Hands.
 
-                Lev Vlassenko's first music teacher was his mother Vera. Lev entered the music school for gifted
-                children in Tiflis in the class of Anastasia Davidovna Virsaladze - herself a pupil of the renowned Anna
-                Yesipova. Lev began to play in public at an early age. At the age of ten years, he played Beethoven's
-                Piano Concerto No. 1 with renowned conductor Odysseas Dimitriadis. In 1948, Lev Vlassenko entered the
-                class of Yakov Flier at the Moscow Conservatory and completed his undergraduate and postgraduate
-                studies.
+              The Red Talons were founded from a portion of the Iron Hands Legion's Morragul Clan, made up primarily of outcasts and the most unstable elements of the X Legion, who fought and died under the merciless command of their bloody-handed Clan commander, the Iron-Lord Autek Mor.
 
-                He gained international recognition after winning the First Prize and Gold Medal at the Franz Liszt
-                International Piano Competition in Budapest in 1956. He and Chinese pianist Liu Shikun came second to
-                Van Cliburn at the inaugural International Tchaikovsky Piano Competition in 1958.
+              Since their founding at the end of the Great Scouring, the Red Talons have been known for their bold style of warfare and never-ending vendetta against the Traitor Legions.
+
+              Several times the High Lords of Terra have tasked the Red Talons with hunting down and destroying Renegade Chapters, a duty they discharge with relish.
+
+              The Red Talons' fortress-monastery is located on their homeworld of Raikan in the Segmentum Tempestus.
               </p>
             </div>
             <div class="tab-pane fade" id="examplePill" role="tabpanel" aria-labelledby="example-pill">
@@ -77,6 +73,10 @@
 
   </div>
 
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Clan Wallets</h1>
+  </div>
+
   <!-- Content Row -->
   <div class="row">
 
@@ -107,7 +107,6 @@
                 Withdraw </button>
             </div>
           </div>
-
         </div>
 
         <div class="card-body">
@@ -171,6 +170,67 @@
 
 
   </div>
+  <br>
+<!--   Community Lending -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Community Lending</h1>
+  </div>
+
+  <!-- Content Row -->
+  <div class="row">
+    <!-- will rereplaced with c_loan_wallets -->
+    {% for c_wallet in clan_wallets %}
+
+      <!-- Earnings (Monthly) Card Example -->
+      <div class="col-xl-12 col-md-6 mb-4">
+        <div class="card card-header-actions border-left-dark shadow h-100 py-2">
+          <div class=" card-header">
+            <a href="#"class="font-weight-bold text-dark text-uppercase">{{c_wallet.name}}</a> Lending to Gerald Woo | 
+            <span class="badge badge-dark ">ACCRUING INTEREST</span>
+            <span class="badge badge-success m-1">TRUSTED BORROWER</span>
+            <div class="dropdown no-caret float-right">
+              <div class=" float-right">
+                <button class="btn btn-dark" type="button" data-toggle="modal" data-target="#depositModalCenter">
+                  Subscribe to Lending </button>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="row">
+
+                
+                <div class="text-center  m-2"><p class="h4 mb-0 font-weight-bold text-center text-gray-800">4.0%</p><br>Annualized Interest Rate</div>
+                <div class="text-center  m-2"><p class="h4 mb-0 font-weight-bold text-center text-gray-800">30 Days</p><br>Loan Duration</div>
+                
+              </div>
+
+                <!-- IF C WALLET HAS GOAL/LIMIT RENDER A PROGRESS BAR -->
+
+                <div class="h5 mb-0 font-weight-bold text-gray-800 text-right">$200.00/500.00 (FUNDING TARGET)</div>
+                <div class="progress">
+                  <!-- calculate progress in backend? -->
+                  <div class="progress-bar progress-bar-striped progress-bar-animated bg-dark" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"><h7 class='text-right'>40 %  </h7></div>
+                </div>
+              </div>
+            </div>
+
+            <hr>
+            Redeption Date: 2020-05-31 20:00:00
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+
+
+    <button class="btn btn-dark btn-block" type="button" data-toggle="modal"
+      data-target="#newwalletexampleModalCenter">Create a Borrowing wallet</button>
+
   <!-- /.container-fluid -->
 
 </div>
