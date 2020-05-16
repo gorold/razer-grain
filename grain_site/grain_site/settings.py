@@ -122,3 +122,7 @@ STATIC_URL = '/static/'
 STATIC_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+# DO NOT STORE HERE FOR PRODUCTION
+KYC_URL = "https://niw1itg937.execute-api.ap-southeast-1.amazonaws.com/Prod/verify"
+KYC_KEY = "WrF1svUKsH5aA6q9sC5s"

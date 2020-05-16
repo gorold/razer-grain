@@ -6,6 +6,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext as _
 from django.template.defaultfilters import slugify
+from django.conf import settings
+
+import requests
+import json
+import base64
 
 from .forms import *
 from .models import *
@@ -76,7 +81,7 @@ def main(request):
 
 def register(request):
     if request.method == "POST":
-        form = SignUpForm(request.POST)
+        form = SignUpForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             user.refresh_from_db()
@@ -91,6 +96,26 @@ def register(request):
             user.is_admin = True
             user.is_superuser = True
             # --------------------------------------
+
+            # ---------KYC CHECK--------------------
+            image = form.cleaned_data.get('nric_image').file
+            image_string = base64.b64encode(image.read())
+            url = settings.KYC_URL
+            payload = {
+                "Content-Type": "application/json",
+                "x-api-key": settings.KYC_KEY,
+                "base64image": image_string.decode('utf-8'),
+            }
+            resp = requests.post(url=url, data=json.dumps(payload)).json()
+            if resp["vision"]["type"] == "No Results":
+                user.delete()
+                storage = messages.get_messages(request)
+                storage.used = True
+                messages.error(request, _("Failed to verify NRIC"))
+                return render(request, 'registration/register.html', context={
+                    'form': form
+                })
+            #---------------------------------------
             user.save()
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)
@@ -98,7 +123,9 @@ def register(request):
             messages.success(request, _('Congratulations! Your account has been created, please ensure to verify your email.'))
             return redirect('/')
         else:
-            messages.error(request, _('Please correct the error below.'))
+            for msg in form.error_messages:
+                messages.error(request, _("Failed to register!"))
+
     else:
         form = SignUpForm
     return render(request, 'registration/register.html', context={
@@ -209,7 +236,7 @@ def clanwallet_topup(request, cslug, cwslug):
                 current_clan_wallet.save()
 
             else:
-                pass        
+                messages.error(request, "Your selected wallet does not have enough funds!")        
 
     return redirect('/clan/'+cslug)
 

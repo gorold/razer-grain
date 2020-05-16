@@ -14,9 +14,11 @@ class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=200, required=True)
     last_name = forms.CharField(max_length=200, required=True)
     email = forms.EmailField(required=True)
-    nric = forms.CharField(max_length=9, required=True)
+    nric = forms.CharField(max_length=9, required=True, label='NRIC')
     country = CountryField().formfield(required=True)
     date_of_birth = forms.DateField(widget=DateInput(attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}), required=True)    
+    full_name = forms.CharField(max_length=200, label="Full name as in NRIC", required=True)
+    nric_image = forms.FileField(label='NRIC Image', required=True)
 
     class Meta:
         model = User
@@ -45,14 +47,14 @@ class AddClanMemberForm(Form):
     username = forms.CharField(max_length=200)
 
 class TopupForm(Form):
-    value = forms.FloatField(min_value=0)
+    value = forms.FloatField(min_value=0, validators=[numerals])
     class Meta:
         widgets = {
             'topup_value': forms.NumberInput()
         }
 
 class TransferForm(Form):
-    value = forms.FloatField(min_value=0)
+    value = forms.FloatField(min_value=0, validators=[numerals])
     to_account = forms.CharField(label='Account', max_length=200, required=True)
     class Meta:
         widgets = {
