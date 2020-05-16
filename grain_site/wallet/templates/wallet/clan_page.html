@@ -56,8 +56,20 @@
               <div class="card card-header-actions border-left-success shadow h-100 py-2">
                   <div class=" card-header font-weight-bold text-success text-uppercase">
                     <a href="{% url 'wallet' %}" >CLAN WALLET 1</a>
-                    <button class="btn btn-success btn-sm">Deposit</button>
-                    <button class="btn btn-success btn-sm">Withdraw</button>
+                    <div class="dropdown no-caret float-right">
+                      <button class="btn btn-transparent-dark btn-icon dropdown-toggle" id="dropdownMenuButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i data-feather="more-vertical"></i>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="{% url 'wallet' %}">View Wallet Details</a>
+                          <a class="dropdown-item btn-success" href="javascript:void(0);">Edit Permissions</a>
+                          <a class="dropdown-item" href="javascript:void(0);">Edit Wallet</a>
+                      </div>
+                      <div class=" float-right">
+                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#depositModalCenter">    Deposit    </button>
+                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#withdrawModalCenter">    Withdraw    </button>
+                    </div>
+                  </div>
                         
                   </div>
         
@@ -83,8 +95,21 @@
               <div class="card card-header-actions border-left-success shadow h-100 py-2">
                   <div class=" card-header font-weight-bold text-success text-uppercase">
                     <a href="{% url 'wallet' %}" >CLAN WALLET 1</a>
-                    <button class="btn btn-success btn-sm">Deposit</button>
-                    <button class="btn btn-success btn-sm">Withdraw</button>
+                    
+                    <div class="dropdown no-caret float-right">
+                      <button class="btn btn-transparent-dark btn-icon dropdown-toggle" id="dropdownMenuButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i data-feather="more-vertical"></i>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="{% url 'wallet' %}">View Wallet Details</a>
+                          <a class="dropdown-item btn-success" href="javascript:void(0);">Edit Permissions</a>
+                          <a class="dropdown-item" href="javascript:void(0);">Edit Wallet</a>
+                      </div>
+                      <div class=" float-right">
+                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#depositModalCenter">    Deposit    </button>
+                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#withdrawModalCenter">    Withdraw    </button>
+                    </div>
+                  </div>
                         
                   </div>
         
@@ -110,8 +135,21 @@
               <div class="card card-header-actions border-left-success shadow h-100 py-2">
                   <div class=" card-header font-weight-bold text-success text-uppercase">
                     <a href="{% url 'wallet' %}" >CLAN WALLET 1</a>
-                    <button class="btn btn-success btn-sm">Deposit</button>
-                    <button class="btn btn-success btn-sm">Withdraw</button>
+
+                    <div class="dropdown no-caret float-right">
+                      <button class="btn btn-transparent-dark btn-icon dropdown-toggle" id="dropdownMenuButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i data-feather="more-vertical"></i>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="{% url 'wallet' %}">View Wallet Details</a>
+                          <a class="dropdown-item btn-success" href="javascript:void(0);">Edit Permissions</a>
+                          <a class="dropdown-item" href="javascript:void(0);">Edit Wallet</a>
+                      </div>
+                      <div class=" float-right">
+                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#depositModalCenter">    Deposit    </button>
+                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#withdrawModalCenter">    Withdraw    </button>
+                    </div>
+                  </div>
                         
                   </div>
         
@@ -180,4 +218,32 @@
       </div>
     </div>
   </div>
+
+<!-- Deposit Widget Modal-->
+  <div class="modal fade" id="depositModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Deposit into this Wallet</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">SOME FORM CONTENT</div>
+            <div class="modal-footer"><button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button><button class="btn btn-success" type="button">Save changes</button></div>
+        </div>
+    </div>
+</div>
+
+<!-- Withdrawal Widget Modal-->
+<div class="modal fade" id="withdrawModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Withdraw from this Wallet</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">SOME FORM CONTENT</div>
+            <div class="modal-footer"><button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button><button class="btn btn-success" type="button">Save changes</button></div>
+        </div>
+    </div>
+</div>
 {% endblock %}
