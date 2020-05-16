@@ -62,4 +62,10 @@ def clan(request):
         return HttpResponse(render(request, 'wallet/clan_page.html'))
     else:
         return redirect('accounts/login')
+
+def under_construction(request):
+    if request.user.is_authenticated:
+        return HttpResponse(render(request, 'wallet/under_construction.html'))
+    else:
+        return redirect('accounts/login')
             

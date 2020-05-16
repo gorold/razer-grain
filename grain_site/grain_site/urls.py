@@ -26,4 +26,5 @@ urlpatterns = [
     path('', views.main, name='home'),
     path('/wallet_template', views.wallet, name='wallet'),
     path('/clan_template', views.clan, name='clan'),
+    path('/under_construction_template', views.under_construction, name='under_construction'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
