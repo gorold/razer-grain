@@ -50,4 +50,16 @@ def register(request):
                     "form": form
                 },
             )
+
+def wallet(request):
+    if request.user.is_authenticated:
+        return HttpResponse(render(request, 'wallet/wallet_page.html'))
+    else:
+        return redirect('accounts/login')
+
+def clan(request):
+    if request.user.is_authenticated:
+        return HttpResponse(render(request, 'wallet/clan_page.html'))
+    else:
+        return redirect('accounts/login')
             
