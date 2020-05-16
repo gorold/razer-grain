@@ -34,7 +34,12 @@ class NewClanForm(ModelForm):
         fields = ['name', 'public']
 
 class JoinClanForm(Form):
-    name = forms.CharField(max_length=200, required=True)
+    name = forms.ModelChoiceField(queryset=Clan.objects.none(), label='Public Clans')
+
+    def __init__(self, *args, **kwargs):
+        super(JoinClanForm, self).__init__(*args, **kwargs)
+        qs = Clan.objects.filter(public=True)
+        self.fields['name'].queryset = qs
 
 class TopupForm(Form):
     value = forms.FloatField(min_value=0)
@@ -53,8 +58,8 @@ class TransferForm(Form):
 
 class NewClanWalletForm(Form):
     name = forms.CharField(label='Name', max_length=200)
-    have_target = forms.BooleanField(label='Set Target?', required=True)
-    target = forms.FloatField(label='Target', min_value=0)
+    have_target = forms.BooleanField(label='Set Target?', required=False)
+    target = forms.FloatField(label='Target', min_value=0, required=False)
 
 class ClanWalletTopupForm(Form):
     amount = forms.FloatField(min_value=0)
@@ -62,6 +67,15 @@ class ClanWalletTopupForm(Form):
 
     def __init__(self, user, *args, **kwargs):
         super(ClanWalletTopupForm, self).__init__(*args, **kwargs)
+        qs = IndividualWallet.objects.filter(user=user)
+        self.fields['my_wallets'].queryset = qs
+
+class ClanWalletWithdrawForm(Form):
+    amount = forms.FloatField(min_value=0)
+    my_wallets = forms.ModelChoiceField(queryset=IndividualWallet.objects.none())
+
+    def __init__(self, user, *args, **kwargs):
+        super(ClanWalletWithdrawForm, self).__init__(*args, **kwargs)
         qs = IndividualWallet.objects.filter(user=user)
         self.fields['my_wallets'].queryset = qs
     
