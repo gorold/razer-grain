@@ -2,33 +2,21 @@
 {% load static %}
 
 {% block screen %}
+<body class="bg-gradient-primary">
 
-    <div class="topnav">
-        <a href="#">
-            <div class="topnav-text">
-                <img src="{% static 'wallet/multimedia.png' %}" alt="Scan" width="40px";/>
-                <p>Scan</p>
-            </div>
-        </a>
-        <a href="#">
-            <div class="topnav-text">
-                <img src="{% static 'wallet/technology.png' %}" alt="Pay" width="40px"/>
-                <p>Pay</p>
-            </div>
-        </a>
-        <a href="#">
-            <div class="topnav-text">
-                <img src="{% static 'wallet/coins.png' %}" alt="Collect" width="40px"/>
-                <p>Collect</p>
-            </div>               
-        </a>
-        <a href="#">
-            <div class="topnav-text">
-                <img src="{% static 'wallet/fashion.png' %}" alt="Pocket" width="40px"/>
-                <p>Pocket</p>
-            </div>
-        </a>
-    </div>
+  <div class="container">
+
     {% block content %}{% endblock %}
 
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
+
+</body>
 {% endblock %}
