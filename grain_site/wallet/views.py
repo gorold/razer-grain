@@ -7,9 +7,9 @@ from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext as _
 from django.template.defaultfilters import slugify
 
-from .forms import SignUpForm
+from .forms import SignUpForm, TopupForm, TransferForm
 
-from .models import Profile, IndividualWallet, Clan
+from .models import Profile, IndividualWallet, Clan, ClanWallet
 
 @login_required
 def main(request):
@@ -59,10 +59,32 @@ def register(request):
 def wallet(request, wslug):
     individual_wallets = IndividualWallet.objects.filter(user=request.user)
     current_wallet = IndividualWallet.objects.get(user=request.user, slug=wslug)
+    if request.method == "POST":
+        if 'submit-topup' in request.POST:
+            topup = TopupForm(request.POST)
+            transfer = TransferForm
+            if topup.is_valid():
+                current_wallet.value += topup.cleaned_data.get('value')
+                current_wallet.save()
+            else:
+                pass
+        elif 'submit-transfer' in request.POST:
+            topup = TopupForm
+            transfer = TransferForm(request.POST)
+            if transfer.is_valid():
+                pass
+            else:
+                pass
+    else:
+        topup = TopupForm
+        transfer = TransferForm
     return HttpResponse(render(request, 'wallet/wallet_page.html', context={
         'user': request.user,
         'wallets': individual_wallets,
+        'clans': request.user.clan_set.all(),
         'current_w': current_wallet,
+        'topup': topup,
+        'transfer': transfer,
     }))
 
 @login_required
@@ -70,8 +92,17 @@ def topup(request):
     pass
 
 @login_required
-def clan(request):
-    return HttpResponse(render(request, 'wallet/clan_page.html'))
+def clan(request, cslug):
+    individual_wallets = IndividualWallet.objects.filter(user=request.user)
+    current_clan = request.user.clan_set.all().filter(slug=cslug).first()
+    clan_wallets = ClanWallet.objects.filter(clan=current_clan)
+    return HttpResponse(render(request, 'wallet/clan_page.html', context={
+        'user': request.user,
+        'wallets': individual_wallets,
+        'clans': request.user.clan_set.all(),
+        'current_clan': current_clan,
+        'clan_wallets': clan_wallets,
+    }))
 
 @login_required
 def under_construction(request):

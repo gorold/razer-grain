@@ -70,14 +70,14 @@
             {% for clan in clans %}
               {% if clan.public %}
               {% else %}
-                <a class="collapse-item" href="#">{{clan.clan_name}}</a>
+                <a class="collapse-item" href="{% url 'clan' cslug=clan.slug %}">{{clan.name}}</a>
               {% endif %}
             {% endfor %}
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Public Clans</h6>
             {% for clan in clans %}
                 {% if clan.public %}
-                  <a class="collapse-item" href="#">{{clan.clan_name}}</a>
+                  <a class="collapse-item" href="{% url 'clan' cslug=clan.slug %}">{{clan.name}}</a>
                 {% endif %}
             {% endfor %}
             <div class="collapse-divider"></div>

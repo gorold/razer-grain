@@ -24,7 +24,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/register/', views.register, name='register'),
     path('wallet/<slug:wslug>/', views.wallet, name='wallet'),
-    path('clan/<str:clanname>', views.clan, name='clan'),
+    path('clan/<slug:cslug>', views.clan, name='clan'),
     path('under_construction_template', views.under_construction, name='under_construction'),
     path('', views.main, name='home'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

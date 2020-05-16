@@ -1,249 +1,198 @@
 {% extends "main/app_base.html" %}
 
 {% block content %}
-    {%load static %}
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
+{%load static %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
 
-          <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">CLAN NAME HERE</h1>
-          </div>
+  <!-- Page Heading -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">{{current_clan.name}}</h1>
+  </div>
 
-          <!-- Content Row -->
-          <div class="row">
+  <!-- Content Row -->
+  <div class="row">
 
-            <div class="col-lg-12 mb-4">
+    <div class="col-lg-12 mb-4">
 
-              <!-- Illustrations -->
-              <div class="card">
-    <div class="card-header">
-        <ul class="nav nav-pills card-header-pills" id="cardPill" role="tablist">
-            <li class="nav-item"><a class="nav-link active" id="overview-pill" href="#overviewPill" data-toggle="tab" role="tab" aria-controls="overview" aria-selected="true">Description</a></li>
-            <li class="nav-item"><a class="nav-link" id="example-pill" href="#examplePill" data-toggle="tab" role="tab" aria-controls="example" aria-selected="false">Members</a></li>
-        </ul>
-    </div>
-    <div class="card-body">
-        <div class="tab-content" id="cardPillContent">
+      <!-- Illustrations -->
+      <div class="card">
+        <div class="card-header">
+          <ul class="nav nav-pills card-header-pills" id="cardPill" role="tablist">
+            <li class="nav-item"><a class="nav-link active" id="overview-pill" href="#overviewPill" data-toggle="tab"
+                role="tab" aria-controls="overview" aria-selected="true">Description</a></li>
+            <li class="nav-item"><a class="nav-link" id="example-pill" href="#examplePill" data-toggle="tab" role="tab"
+                aria-controls="example" aria-selected="false">Members</a></li>
+          </ul>
+        </div>
+        <div class="card-body">
+          <div class="tab-content" id="cardPillContent">
             <div class="tab-pane fade show active" id="overviewPill" role="tabpanel" aria-labelledby="overview-pill">
-                <h5 class="card-title">Lev Vlassenko</h5>
-                <p class="card-text">Lev Vlassenko was born on 24 December 1928 in Tiflis, Georgian SSR, Soviet Union to Nikolai Appolonovich Vlassenko and Vera Solomonovna Benditskaya.
+              <h5 class="card-title">Lev Vlassenko</h5>
+              <p class="card-text">Lev Vlassenko was born on 24 December 1928 in Tiflis, Georgian SSR, Soviet Union to
+                Nikolai Appolonovich Vlassenko and Vera Solomonovna Benditskaya.
 
-                Lev Vlassenko's first music teacher was his mother Vera. Lev entered the music school for gifted children in Tiflis in the class of Anastasia Davidovna Virsaladze - herself a pupil of the renowned Anna Yesipova. Lev began to play in public at an early age. At the age of ten years, he played Beethoven's Piano Concerto No. 1 with renowned conductor Odysseas Dimitriadis. In 1948, Lev Vlassenko entered the class of Yakov Flier at the Moscow Conservatory and completed his undergraduate and postgraduate studies.
+                Lev Vlassenko's first music teacher was his mother Vera. Lev entered the music school for gifted
+                children in Tiflis in the class of Anastasia Davidovna Virsaladze - herself a pupil of the renowned Anna
+                Yesipova. Lev began to play in public at an early age. At the age of ten years, he played Beethoven's
+                Piano Concerto No. 1 with renowned conductor Odysseas Dimitriadis. In 1948, Lev Vlassenko entered the
+                class of Yakov Flier at the Moscow Conservatory and completed his undergraduate and postgraduate
+                studies.
 
-                He gained international recognition after winning the First Prize and Gold Medal at the Franz Liszt International Piano Competition in Budapest in 1956. He and Chinese pianist Liu Shikun came second to Van Cliburn at the inaugural International Tchaikovsky Piano Competition in 1958.
-                </p>
+                He gained international recognition after winning the First Prize and Gold Medal at the Franz Liszt
+                International Piano Competition in Budapest in 1956. He and Chinese pianist Liu Shikun came second to
+                Van Cliburn at the inaugural International Tchaikovsky Piano Competition in 1958.
+              </p>
             </div>
             <div class="tab-pane fade" id="examplePill" role="tabpanel" aria-labelledby="example-pill">
-                <h5 class="card-title">Clan Members</h5>
+              <h5 class="card-title">Clan Members</h5>
 
-                <img class="img-profile rounded-circle" src="{% static 'hbyong.jpg' %}">
-                <img class="img-profile rounded-circle" src="{% static 'hbyong.jpg' %}">
+              <img class="img-profile rounded-circle" src="{% static 'hbyong.jpg' %}">
+              <img class="img-profile rounded-circle" src="{% static 'hbyong.jpg' %}">
             </div>
+          </div>
         </div>
+      </div>
+
     </div>
+
+  </div>
+
+  <!-- Content Row -->
+  <div class="row">
+
+    {% for c_wallet in clan_wallets %}
+
+      <!-- Earnings (Monthly) Card Example -->
+      <div class="col-xl-12 col-md-6 mb-4">
+        <div class="card card-header-actions border-left-success shadow h-100 py-2">
+          <div class=" card-header font-weight-bold text-success text-uppercase">
+            <a href="#">{{c_wallet.name}}</a>
+
+            <div class="dropdown no-caret float-right">
+              <button class="btn btn-transparent-dark btn-icon dropdown-toggle" id="dropdownMenuButton" type="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i data-feather="more-vertical"></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">View Wallet Details</a>
+                <a class="dropdown-item btn-success" href="javascript:void(0);" , type="button" data-toggle="modal"
+                  data-target="#editpermissionsexampleModalCenter">Edit Permissions</a>
+                <a class="dropdown-item btn-success" href="javascript:void(0);" , type="button" data-toggle="modal"
+                  data-target="#editwalletexampleModalCenter">Edit Wallet</a>
+              </div>
+              <div class=" float-right">
+                <button class="btn btn-success" type="button" data-toggle="modal" data-target="#depositModalCenter">
+                  Deposit </button>
+                <button class="btn btn-success" type="button" data-toggle="modal" data-target="#withdrawModalCenter">
+                  Withdraw </button>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+
+                <span class="badge badge-success">VISIBLE</span>
+                <span class="badge badge-success">CAN DEPOSIT</span>
+                <span class="badge badge-secondary">CANNOT WITHDRAW</span>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">${{c_wallet.value}}</div>
+              </div>
+              <div class="col-auto">
+                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+
+
+    <button class="btn btn-success btn-block" type="button" data-toggle="modal"
+      data-target="#newwalletexampleModalCenter">Create a new Clan wallet</button>
+
+
+  </div>
+  <!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+  <div class="container my-auto">
+    <div class="copyright text-center my-auto">
+      <span>Copyright &copy; Your Website 2019</span>
+    </div>
+  </div>
+</footer>
+<!-- End of Footer -->
+
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-primary" href="login.html">Logout</a>
+      </div>
+    </div>
+  </div>
 </div>
 
-            </div>
-
-          </div>
-
-          <!-- Content Row -->
-          <div class="row">
-
-            <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-12 col-md-6 mb-4">
-              <div class="card card-header-actions border-left-success shadow h-100 py-2">
-                  <div class=" card-header font-weight-bold text-success text-uppercase">
-                    <a href="{% url 'wallet' %}" >CLAN WALLET 1</a>
-                    <div class="dropdown no-caret float-right">
-                      <button class="btn btn-transparent-dark btn-icon dropdown-toggle" id="dropdownMenuButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i data-feather="more-vertical"></i>
-                      </button>
-                      <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" href="{% url 'wallet' %}">View Wallet Details</a>
-                          <a class="dropdown-item btn-success" href="javascript:void(0);">Edit Permissions</a>
-                          <a class="dropdown-item" href="javascript:void(0);">Edit Wallet</a>
-                      </div>
-                      <div class=" float-right">
-                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#depositModalCenter">    Deposit    </button>
-                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#withdrawModalCenter">    Withdraw    </button>
-                    </div>
-                  </div>
-                        
-                  </div>
-        
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      
-                      <span class="badge badge-secondary">HIDDEN</span>
-                        <span class="badge badge-success">CAN DEPOSIT</span>
-                        <span class="badge badge-success">CAN WITHDRAW</span>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$400</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-12 col-md-6 mb-4">
-              <div class="card card-header-actions border-left-success shadow h-100 py-2">
-                  <div class=" card-header font-weight-bold text-success text-uppercase">
-                    <a href="{% url 'wallet' %}" >CLAN WALLET 1</a>
-                    
-                    <div class="dropdown no-caret float-right">
-                      <button class="btn btn-transparent-dark btn-icon dropdown-toggle" id="dropdownMenuButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i data-feather="more-vertical"></i>
-                      </button>
-                      <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" href="{% url 'wallet' %}">View Wallet Details</a>
-                          <a class="dropdown-item btn-success" href="javascript:void(0);">Edit Permissions</a>
-                          <a class="dropdown-item" href="javascript:void(0);">Edit Wallet</a>
-                      </div>
-                      <div class=" float-right">
-                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#depositModalCenter">    Deposit    </button>
-                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#withdrawModalCenter">    Withdraw    </button>
-                    </div>
-                  </div>
-                        
-                  </div>
-        
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      
-                      <span class="badge badge-success">VISIBLE</span>
-                        <span class="badge badge-success">CAN DEPOSIT</span>
-                        <span class="badge badge-success">CAN WITHDRAW</span>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$400</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-12 col-md-6 mb-4">
-              <div class="card card-header-actions border-left-success shadow h-100 py-2">
-                  <div class=" card-header font-weight-bold text-success text-uppercase">
-                    <a href="{% url 'wallet' %}" >CLAN WALLET 1</a>
-
-                    <div class="dropdown no-caret float-right">
-                      <button class="btn btn-transparent-dark btn-icon dropdown-toggle" id="dropdownMenuButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i data-feather="more-vertical"></i>
-                      </button>
-                      <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" href="{% url 'wallet' %}">View Wallet Details</a>
-                          <a class="dropdown-item btn-success" href="javascript:void(0);", type="button" data-toggle="modal" data-target="#editpermissionsexampleModalCenter">Edit Permissions</a>
-                          <a class="dropdown-item btn-success" href="javascript:void(0);", type="button" data-toggle="modal" data-target="#editwalletexampleModalCenter">Edit Wallet</a>
-                      </div>
-                      <div class=" float-right">
-                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#depositModalCenter">    Deposit    </button>
-                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#withdrawModalCenter">    Withdraw    </button>
-                    </div>
-                  </div>
-                        
-                  </div>
-        
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      
-                      <span class="badge badge-success">VISIBLE</span>
-                        <span class="badge badge-success">CAN DEPOSIT</span>
-                        <span class="badge badge-secondary">CANNOT WITHDRAW</span>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$400</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <button class="btn btn-success btn-block" type="button" data-toggle="modal" data-target="#newwalletexampleModalCenter">Create a new Clan wallet</button>
-
-
-        </div>
-        <!-- /.container-fluid -->
-
-      </div>
-      <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
-
-    </div>
-    <!-- End of Content Wrapper -->
-
-  </div>
-  <!-- End of Page Wrapper -->
-
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
 <!-- Deposit Widget Modal-->
-  <div class="modal fade" id="depositModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Deposit into this Wallet</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            </div>
-            <div class="modal-body">ORIGIN WALLET:()<br>DESTINATION WALLET: ()<br>VALUE: ()</div>
-            <div class="modal-footer"><button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button><button class="btn btn-success" type="button">Deposit</button></div>
-        </div>
+<div class="modal fade" id="depositModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Deposit into this Wallet</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">ORIGIN WALLET:()<br>DESTINATION WALLET: ()<br>VALUE: ()</div>
+      <div class="modal-footer"><button class="btn btn-secondary" type="button"
+          data-dismiss="modal">Close</button><button class="btn btn-success" type="button">Deposit</button></div>
     </div>
+  </div>
 </div>
 
 <!-- Withdrawal Widget Modal-->
-<div class="modal fade" id="withdrawModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Withdraw from this Wallet</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-            </div>
-            <div class="modal-body">ORIGIN WALLET:()<br>DESTINATION WALLET: ()<br>VALUE: ()</div>
-            <div class="modal-footer"><button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button><button class="btn btn-success" type="button">Withdraw</button></div>
-        </div>
+<div class="modal fade" id="withdrawModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Withdraw from this Wallet</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">ORIGIN WALLET:()<br>DESTINATION WALLET: ()<br>VALUE: ()</div>
+      <div class="modal-footer"><button class="btn btn-secondary" type="button"
+          data-dismiss="modal">Close</button><button class="btn btn-success" type="button">Withdraw</button></div>
     </div>
+  </div>
 </div>
 {% endblock %}

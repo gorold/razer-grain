@@ -26,9 +26,18 @@ class NewWalletForm(Form):
     name = forms.CharField(label='Name of new wallet', max_length=200, required=True)
     credit_card_number = forms.CharField(label='Credit Card Number', max_length=16, validators=[numerals], required=True)
 
-class TransactionForm(Form):
-    topup_value = forms.FloatField(min_value=0)
+class TopupForm(Form):
+    value = forms.FloatField(min_value=0)
 
+
+    class Meta:
+        widgets = {
+            'topup_value': forms.NumberInput()
+        }
+
+class TransferForm(Form):
+    value = forms.FloatField(min_value=0)
+    to_account = forms.CharField(label='Account', max_length=200, required=True)
     class Meta:
         widgets = {
             'topup_value': forms.NumberInput()

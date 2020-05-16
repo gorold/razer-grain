@@ -41,8 +41,8 @@
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">CURRENT BALANCE</div>
                       <div class="h5 mb-0 font-weight-bold text-gray-800">${{current_w.value}}
                         <div class=" float-right">
-                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#depositModalCenter">    Deposit    </button>
-                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#withdrawModalCenter">    Withdraw    </button>
+                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#depositModalCenter">    TOPUP    </button>
+                        <button class="btn btn-success" type="button" data-toggle="modal" data-target="#withdrawModalCenter">    TRANSFER    </button>
                         </div>
                       </div>
 
@@ -190,10 +190,17 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Deposit into this Wallet</h5>
+                <h5 class="modal-title" id="exampleModalCenterTitle">Topup this Wallet</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
-            <div class="modal-body">ORIGIN WALLET:()<br>DESTINATION WALLET: ()<br>VALUE: ()</div>
+            <div class="modal-body">
+              <!-- ORIGIN WALLET:()<br>DESTINATION WALLET: ()<br>VALUE: () -->
+              <form method="POST">
+                {% csrf_token %}
+                {{ topup.as_p }}
+                <button name="submit-topup" class="btn btn-success btn-user btn-block" type="submit">Top Up!</button>
+              </form>
+            </div>
             <div class="modal-footer"><button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button><button class="btn btn-success" type="button">Deposit</button></div>
         </div>
     </div>
@@ -204,10 +211,17 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Withdraw from this Wallet</h5>
+                <h5 class="modal-title" id="exampleModalCenterTitle">Transfer from this Wallet</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
-            <div class="modal-body">ORIGIN WALLET:()<br>DESTINATION WALLET: ()<br>VALUE: ()</div>
+            <div class="modal-body">
+              <!-- ORIGIN WALLET:()<br>DESTINATION WALLET: ()<br>VALUE: () -->
+              <form method="POST">
+                {% csrf_token %}
+                {{ transfer.as_p }}
+                <button name="submit-transfer" class="btn btn-success btn-user btn-block" type="submit">Transfer!</button>
+              </form>
+            </div>
             <div class="modal-footer"><button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button><button class="btn btn-success" type="button">Withdraw</button></div>
         </div>
     </div>
