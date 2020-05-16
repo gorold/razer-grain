@@ -15,7 +15,8 @@
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-2">RAZER DIGITAL BANKING</div>
+
+        <img src="{% static 'razerfintech-logo-1536x233.png' %}"/>
       </a>
 
       <!-- Divider -->
@@ -45,9 +46,14 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-            <a class="collapse-item" href="{% url 'home' %}">Savings Wallet</a>
-            <a class="collapse-item" href="{% url 'home' %}">Spending Wallet</a>
-            <a class="collapse-item" href="{% url 'home' %}">Create New Wallet</a>
+            <a class="collapse-item" href="{% url 'wallet' %}">Savings Wallet</a>
+            <a class="collapse-item" href="{% url 'wallet' %}">Spending Wallet</a>
+          </div>
+          <div>
+          	<!-- Button trigger modal -->
+<button class="btn btn-success" type="button" data-toggle="modal" data-target="#newwalletexampleModalCenter">    Create a New Wallet    </button>
+
+
           </div>
         </div>
       </li>
@@ -61,16 +67,22 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Private Clans</h6>
-            <a class="collapse-item" href="{% url 'home' %}">Yong Family Wallets</a>
-            <a class="collapse-item" href="{% url 'home' %}">DOTA Kakis</a>
-            <a class="collapse-item" href="{% url 'home' %}">Vacation Buddies</a>
+            <a class="collapse-item" href="{% url 'clan' %}">Yong Family Wallets</a>
+            <a class="collapse-item" href="{% url 'clan' %}">DOTA Kakis</a>
+            <a class="collapse-item" href="{% url 'clan' %}">Vacation Buddies</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Public Clans</h6>
-            <a class="collapse-item" href="{% url 'home' %}">SMU Kopi Clubbers</a>
-            <a class="collapse-item" href="{% url 'home' %}">SG Elites Clan</a>
+            <a class="collapse-item" href="{% url 'clan' %}">SMU Kopi Clubbers</a>
+            <a class="collapse-item" href="{% url 'clan' %}">SG Elites Clan</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Add Clans</h6>
-            <a class="collapse-item" href="{% url 'home' %}">Create or Join a Clan</a>
+            <a class="collapse-item" href="{% url 'clan' %}">Create or Join a Clan</a>
+          </div>
+                    <div>
+          	<!-- Button trigger modal -->
+<button class="btn btn-success" type="button" data-toggle="modal" data-target="#newclanexampleModalCenter">    Create or Join a Clan    </button>
+
+
           </div>
         </div>
       </li>
@@ -170,7 +182,7 @@
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user.first_name}} {{user.last_name}}</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                <img class="img-profile rounded-circle" src="{% static 'hbyong.jpg' %}">
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -217,6 +229,34 @@
   <!-- Page level custom scripts -->
   <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
   <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+
+<!-- Modal -->
+<div class="modal fade" id="newwalletexampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Create a New Personal Wallet</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">SOME FORM CONTENT</div>
+            <div class="modal-footer"><button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="newclanexampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Create or Join a Clan</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">SOME FORM CONTENT</div>
+            <div class="modal-footer"><button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save changes</button></div>
+        </div>
+    </div>
+</div>
 
 </body>
 {% endblock %}
