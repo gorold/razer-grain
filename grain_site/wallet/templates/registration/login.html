@@ -30,7 +30,7 @@
 
 
 
-                  <form class="user" method="POST" action="{% url 'login' %}">
+                  <form class="user" method="POST" action="{% url 'login' %}?next={% url 'home' %}">
                     {% csrf_token %}
                     <table>
                     <tr>
@@ -51,7 +51,7 @@
                       </div>
                     </div>
                     <input type="submit" class="btn btn-success btn-user btn-block" value="LOGIN" />
-                    <input type="hidden" name="next" value="{{ next }}" />
+                    <!-- <input type="hidden" name="next" value="{{ next }}" /> -->
                     {% if form.errors %}
                     <p>Username and password didn't match. Please try again.</p>
                     {% endif %}

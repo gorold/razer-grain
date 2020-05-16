@@ -131,21 +131,61 @@ def wallet(request, wslug):
     }))
 
 @login_required
-def topup(request):
-    pass
-
-@login_required
 def clan(request, cslug):
     individual_wallets = IndividualWallet.objects.filter(user=request.user)
     current_clan = request.user.clan_set.all().filter(slug=cslug).first()
     clan_wallets = ClanWallet.objects.filter(clan=current_clan)
+    
+    topup_clan_wallet = ClanWalletTopupForm(request.user)
+    new_clan_wallet = NewClanWalletForm
+
+    if request.method == "POST":
+
+        if "submit-new-clan-wallet" in request.POST:
+            new_clan_wallet = NewClanWalletForm(request.POST)
+            if new_clan_wallet.is_valid():
+                wallet_name = new_clan_wallet.cleaned_data.get('name')
+                have_target = new_clan_wallet.cleaned_data.get('have_target')
+                target = new_clan_wallet.cleaned_data.get('target')
+                c = ClanWallet.objects.create(clan=current_clan, name=wallet_name, value=0.0, have_target=have_target, target=target)
+                c.save()
+            else:
+                pass
+
     return HttpResponse(render(request, 'wallet/clan_page.html', context={
         'user': request.user,
         'wallets': individual_wallets,
         'clans': request.user.clan_set.all(),
         'current_clan': current_clan,
         'clan_wallets': clan_wallets,
+        'topup_clan_wallet': topup_clan_wallet,
+        'new_clan_wallet': new_clan_wallet,
     }))
+
+@login_required
+def clanwallet(request, cslug, cwslug):
+    individual_wallets = IndividualWallet.objects.filter(user=request.user)
+    current_clan = request.user.clan_set.all().filter(slug=cslug).first()
+    clan_wallets = ClanWallet.objects.filter(clan=current_clan)
+    current_clan_wallet = clan_wallets.filter(slug=cwslug).first()
+
+    if request.method == "POST":
+        topup_clan_wallet = ClanWalletTopupForm(request.user, request.POST)
+        if topup_clan_wallet.is_valid():
+            my_wallet = topup_clan_wallet.cleaned_data.get('my_wallets')
+            amount = topup_clan_wallet.cleaned_data.get('amount')
+            iw = individual_wallets.filter(name=my_wallet.name).first()
+            if iw.value >= amount:
+                iw.value -= amount
+                iw.save()
+                current_clan_wallet.value += amount
+                current_clan_wallet.save()
+
+            else:
+                pass        
+
+    return redirect('/clan/'+cslug)
+
 
 @login_required
 def under_construction(request):

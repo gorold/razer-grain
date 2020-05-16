@@ -38,8 +38,6 @@ class JoinClanForm(Form):
 
 class TopupForm(Form):
     value = forms.FloatField(min_value=0)
-
-
     class Meta:
         widgets = {
             'topup_value': forms.NumberInput()
@@ -53,7 +51,17 @@ class TransferForm(Form):
             'topup_value': forms.NumberInput()
         }
 
-class NewClanWalletForm(ModelForm):
-    class Meta:
-        model = ClanWallet
-        fields = ['name']
+class NewClanWalletForm(Form):
+    name = forms.CharField(label='Name', max_length=200)
+    have_target = forms.BooleanField(label='Set Target?', required=True)
+    target = forms.FloatField(label='Target', min_value=0)
+
+class ClanWalletTopupForm(Form):
+    amount = forms.FloatField(min_value=0)
+    my_wallets = forms.ModelChoiceField(queryset=IndividualWallet.objects.none())
+
+    def __init__(self, user, *args, **kwargs):
+        super(ClanWalletTopupForm, self).__init__(*args, **kwargs)
+        qs = IndividualWallet.objects.filter(user=user)
+        self.fields['my_wallets'].queryset = qs
+    

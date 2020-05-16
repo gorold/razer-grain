@@ -41,6 +41,9 @@ class IndividualWallet(models.Model):
         self.slug = slugify(self.name)
         super(IndividualWallet, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return self.name
+
 class IndividualTransactions(models.Model):
     wallet = models.ForeignKey(
         IndividualWallet,
@@ -67,9 +70,14 @@ class ClanWallet(models.Model):
         on_delete=models.CASCADE,
     )
     value = models.FloatField(null=True)
+    have_target = models.BooleanField()
+    target = models.FloatField(null=True)
+    percent = models.FloatField(null=True)
     slug = models.CharField(max_length=200, null=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
+        if self.have_target:
+            self.percent = (self.value / self.target) * 100
         super(ClanWallet, self).save(*args, **kwargs)
 
