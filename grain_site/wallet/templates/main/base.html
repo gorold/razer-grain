@@ -1,0 +1,34 @@
+{% extends "main/head.html" %}
+{% load static %}
+
+{% block screen %}
+
+    <div class="topnav">
+        <a href="#">
+            <div class="topnav-text">
+                <img src="{% static 'wallet/multimedia.png' %}" alt="Scan" width="40px";/>
+                <p>Scan</p>
+            </div>
+        </a>
+        <a href="#">
+            <div class="topnav-text">
+                <img src="{% static 'wallet/technology.png' %}" alt="Pay" width="40px"/>
+                <p>Pay</p>
+            </div>
+        </a>
+        <a href="#">
+            <div class="topnav-text">
+                <img src="{% static 'wallet/coins.png' %}" alt="Collect" width="40px"/>
+                <p>Collect</p>
+            </div>               
+        </a>
+        <a href="#">
+            <div class="topnav-text">
+                <img src="{% static 'wallet/fashion.png' %}" alt="Pocket" width="40px"/>
+                <p>Pocket</p>
+            </div>
+        </a>
+    </div>
+    {% block content %}{% endblock %}
+
+{% endblock %}
