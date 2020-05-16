@@ -7,8 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext as _
 from django.template.defaultfilters import slugify
 
-from .forms import SignUpForm, TopupForm, TransferForm
-
+from .forms import *
 from .models import Profile, IndividualWallet, Clan, ClanWallet
 
 @login_required
@@ -17,11 +16,55 @@ def main(request):
     savings = 0.0
     for wallet in individual_wallets:
         savings += wallet.value
+
+    new_wallet = NewIndividualWalletForm
+    new_clan = NewClanForm
+    join_clan = JoinClanForm
+
+    if request.method == "POST":
+        
+        if "submit-new-wallet" in request.POST:
+            new_wallet = NewIndividualWalletForm(request.POST)
+            if new_wallet.is_valid():
+                # TODO: No repeated names
+                wallet_name = new_wallet.cleaned_data.get('name')
+                credit_card_number = new_wallet.cleaned_data.get('credit_card_number')
+                w = IndividualWallet.objects.create(name=wallet_name, user=request.user, value=0)
+                w.save()
+            else:
+                pass
+
+        elif "submit-new-clan" in request.POST:
+            new_clan = NewClanForm(request.POST)
+            if new_clan.is_valid():
+                # TODO: No repeated names
+                clan_name = new_clan.cleaned_data.get('name')
+                public = new_clan.cleaned_data.get('public')
+                c = Clan.objects.create(name=clan_name, public=public)
+                c.save()
+                c.members.add(request.user)
+                c.save()
+            else:
+                pass
+
+        elif "submit-join-clan" in request.POST:
+            join_clan = JoinClanForm(request.POST)
+            if join_clan.is_valid():
+                clan_name = join_clan.cleaned_data.get('name')
+                c = Clan.objects.get(name=clan_name)
+                c.members.add(request.user)
+                c.save()
+            else:
+                pass
+    
     return HttpResponse(render(request, 'wallet/home.html', context={
         'user': request.user,
         'wallets': individual_wallets,
-        'savings': savings,
         'clans': request.user.clan_set.all(),
+        'savings': savings,
+        'new_wallet': new_wallet,
+        'new_clan': new_clan,
+        'join_clan': join_clan,
     }))
 
 def register(request):

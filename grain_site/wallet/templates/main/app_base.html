@@ -1,7 +1,9 @@
 {% extends "main/app_head.html" %}
 {% load static %}
+{% load load_sidebar }
 
 {% block screen %}
+
 <body id="page-top">
 
   <!-- Page Wrapper -->
@@ -12,10 +14,10 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-          
-      
+
+
       <a class="sidebar-brand d-flex align-items-center justify-content-center " href="{% url 'home' %}">
-          <img src="{% static 'razerfintech-logo-1536x233.png' %}" class="img-fluid">
+        <img src="{% static 'razerfintech-logo-1536x233.png' %}" class="img-fluid">
       </a>
 
       <!-- Divider -->
@@ -38,7 +40,8 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+          aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
           <span>Private Wallets</span>
         </a>
@@ -46,12 +49,13 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Custom Components:</h6> -->
             {% for wallet in wallets %}
-              <a class="collapse-item" href="{% url 'wallet' wslug=wallet.slug %}">{{wallet.name}}</a>
+            <a class="collapse-item" href="{% url 'wallet' wslug=wallet.slug %}">{{wallet.name}}</a>
             {% endfor %}
           </div>
           <div>
-          	<!-- Button trigger modal -->
-<button class="btn btn-success" type="button" data-toggle="modal" data-target="#newwalletexampleModalCenter">    Create a New Wallet    </button>
+            <!-- Button trigger modal -->
+            <button class="btn btn-success" type="button" data-toggle="modal"
+              data-target="#newwalletexampleModalCenter"> Create a New Wallet </button>
 
 
           </div>
@@ -60,7 +64,8 @@
 
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+          aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-wrench"></i>
           <span>My Clans</span>
         </a>
@@ -68,23 +73,27 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Private Clans</h6>
             {% for clan in clans %}
-              {% if clan.public %}
-              {% else %}
-                <a class="collapse-item" href="{% url 'clan' cslug=clan.slug %}">{{clan.name}}</a>
-              {% endif %}
+            {% if clan.public %}
+            {% else %}
+            <a class="collapse-item" href="{% url 'clan' cslug=clan.slug %}">{{clan.name}}</a>
+            {% endif %}
             {% endfor %}
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Public Clans</h6>
             {% for clan in clans %}
-                {% if clan.public %}
-                  <a class="collapse-item" href="{% url 'clan' cslug=clan.slug %}">{{clan.name}}</a>
-                {% endif %}
+            {% if clan.public %}
+            <a class="collapse-item" href="{% url 'clan' cslug=clan.slug %}">{{clan.name}}</a>
+            {% endif %}
             {% endfor %}
             <div class="collapse-divider"></div>
           </div>
-                    <div>
-          	<!-- Button trigger modal -->
-<button class="btn btn-success" type="button" data-toggle="modal" data-target="#newclanexampleModalCenter">    Create or Join a Clan    </button>
+          <div>
+            <!-- Button trigger modal -->
+            <button class="btn btn-success" type="button" data-toggle="modal" data-target="#createClanModalCenter">
+              Create Clan</button>
+
+            <button class="btn btn-success" type="button" data-toggle="modal" data-target="#joinClanModalCenter">
+              Join Clan</button>
 
 
           </div>
@@ -101,7 +110,8 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
+          aria-controls="collapsePages">
           <i class="fas fa-fw fa-folder"></i>
           <span>Other Pages</span>
         </a>
@@ -134,10 +144,10 @@
       </li>
 
       <!-- Divider -->
-<!--       <hr class="sidebar-divider d-none d-md-block"> -->
+      <!--       <hr class="sidebar-divider d-none d-md-block"> -->
 
       <!-- Sidebar Toggler (Sidebar) -->
-<!--       <div class="text-center d-none d-md-inline">
+      <!--       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
       </div> -->
 
@@ -163,14 +173,17 @@
 
             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
             <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-search fa-fw"></i>
               </a>
               <!-- Dropdown - Messages -->
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                aria-labelledby="searchDropdown">
                 <form class="form-inline mr-auto w-100 navbar-search">
                   <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                      aria-label="Search" aria-describedby="basic-addon2">
                     <div class="input-group-append">
                       <button class="btn btn-primary" type="button">
                         <i class="fas fa-search fa-sm"></i>
@@ -184,7 +197,8 @@
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user.first_name}} {{user.last_name}}</span>
                 <img class="img-profile rounded-circle" src="{% static 'hbyong.jpg' %}">
               </a>
@@ -215,80 +229,127 @@
         </nav>
         <!-- End of Topbar -->
 
-    {% block content %}{% endblock %}
+        {% block content %}{% endblock %}
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <!-- Bootstrap core JavaScript-->
+        <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+        <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
-  <!-- Core plugin JavaScript-->
-  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
 
-  <!-- Custom scripts for all pages-->
-  <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
 
-  <!-- Page level plugins -->
-  <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+        <!-- Page level plugins -->
+        <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
 
-  <!-- Page level custom scripts -->
-  <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
-  <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+        <!-- Page level custom scripts -->
+        <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+        <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
 
-<!-- Add Wallet Modal -->
-<div class="modal fade" id="newwalletexampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
+        <!-- Add Wallet Modal -->
+        <div class="modal fade" id="newwalletexampleModalCenter" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalCenterTitle">Create a New Wallet</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">×</span></button>
+              </div>
+              <div class="modal-body">
+                <form method="POST">
+                  {% csrf_token %}
+                  {{ new_wallet.as_p }}
+                  <button name="submit-new-wallet" class="btn btn-success btn-user btn-block" type="submit">Create!</button>
+                </form>
+              </div>
+              <!-- <div class="modal-footer"><button class="btn btn-secondary" type="button"
+                  data-dismiss="modal">Close</button><button class="btn btn-success" type="button">Add</button></div> -->
             </div>
-            <div class="modal-body">WALLET NAME:<br>CREATE IN: (PERSONAL, CLAN 1, CLAN 2 etc.)<br></div>
-            <div class="modal-footer"><button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button><button class="btn btn-success" type="button">Add</button></div>
+          </div>
         </div>
-    </div>
-</div>
 
-<!-- Edit Wallet Modal -->
-<div class="modal fade" id="editwalletexampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
+        <!-- Edit Wallet Modal -->
+        <div class="modal fade" id="editwalletexampleModalCenter" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalCenterTitle">Edit Wallet</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">×</span></button>
+              </div>
+              <div class="modal-body">WALLET NAME:<br>CREATE IN: (PERSONAL, CLAN 1, CLAN 2 etc.)<br></div>
+              <div class="modal-footer"><button class="btn btn-secondary" type="button"
+                  data-dismiss="modal">Close</button><button class="btn btn-success" type="button">Add</button></div>
             </div>
-            <div class="modal-body">WALLET NAME:<br>CREATE IN: (PERSONAL, CLAN 1, CLAN 2 etc.)<br></div>
-            <div class="modal-footer"><button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button><button class="btn btn-success" type="button">Add</button></div>
+          </div>
         </div>
-    </div>
-</div>
 
-<!-- Edit Permissions Modal -->
-<div class="modal fade" id="editpermissionsexampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
+        <!-- Edit Permissions Modal -->
+        <div class="modal fade" id="editpermissionsexampleModalCenter" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalCenterTitle">Edit Wallet Permissions</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">×</span></button>
+              </div>
+              <div class="modal-body">WALLET NAME GOES HERE<br>READ ACCESS: (LIST OF USERS)<br>DEPOSIT ACCESS: (LIST OF
+                USERS)<br>WITHDRAW ACCESS: (LIST OF USERS)</div>
+              <div class="modal-footer"><button class="btn btn-secondary" type="button"
+                  data-dismiss="modal">Close</button><button class="btn btn-success" type="button">Add</button></div>
             </div>
-            <div class="modal-body">WALLET NAME GOES HERE<br>READ ACCESS: (LIST OF USERS)<br>DEPOSIT ACCESS: (LIST OF USERS)<br>WITHDRAW ACCESS: (LIST OF USERS)</div>
-            <div class="modal-footer"><button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button><button class="btn btn-success" type="button">Add</button></div>
+          </div>
         </div>
-    </div>
-</div>
 
-<!-- Add Clan Modal -->
-<div class="modal fade" id="newclanexampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Create or Join a Clan</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <!-- Create Clan Modal -->
+        <div class="modal fade" id="createClanModalCenter" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Create a Clan!</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">×</span></button>
+              </div>
+              <div class="modal-body">
+                <form method="POST">
+                  {% csrf_token %}
+                  {{ new_clan.as_p }}
+                  <button name="submit-new-clan" class="btn btn-success btn-user btn-block" type="submit">Create!</button>
+                </form>
+              </div>
+              <div class="modal-footer"><button class="btn btn-secondary" type="button"
+                  data-dismiss="modal">Close</button><button class="btn btn-success" type="button">Add</button></div>
             </div>
-            <div class="modal-body">SOME FORM CONTENT</div>
-            <div class="modal-footer"><button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button><button class="btn btn-success" type="button">Add</button></div>
+          </div>
         </div>
-    </div>
-</div>
+        <!-- Join Clan Modal -->
+        <div class="modal fade" id="joinClanModalCenter" tabindex="-1" role="dialog"
+          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Join a Clan!</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">×</span></button>
+              </div>
+              <div class="modal-body">
+                <form method="POST">
+                  {% csrf_token %}
+                  {{ join_clan.as_p }}
+                  <button name="submit-join-clan" class="btn btn-success btn-user btn-block" type="submit">Join!</button>
+                </form>
+              </div>
+              <div class="modal-footer"><button class="btn btn-secondary" type="button"
+                  data-dismiss="modal">Close</button><button class="btn btn-success" type="button">Add</button></div>
+            </div>
+          </div>
+        </div>
 
 </body>
 {% endblock %}

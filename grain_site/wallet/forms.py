@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django_countries.fields import CountryField
-from .models import IndividualWallet
+from .models import IndividualWallet, Clan, ClanWallet
 
 from django.core.validators import RegexValidator
 numerals = RegexValidator(r'^[0-9]*$', 'Only alphanumeric characters are allowed.')
@@ -22,9 +22,19 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ['first_name', 'last_name', 'email', 'username', 'password1', 'password2', 'nric', 'country', 'date_of_birth']
 
-class NewWalletForm(Form):
-    name = forms.CharField(label='Name of new wallet', max_length=200, required=True)
+class NewIndividualWalletForm(ModelForm):
     credit_card_number = forms.CharField(label='Credit Card Number', max_length=16, validators=[numerals], required=True)
+    class Meta:
+        model = IndividualWallet
+        fields = ['name', 'credit_card_number']
+
+class NewClanForm(ModelForm):
+    class Meta:
+        model = Clan
+        fields = ['name', 'public']
+
+class JoinClanForm(Form):
+    name = forms.CharField(max_length=200, required=True)
 
 class TopupForm(Form):
     value = forms.FloatField(min_value=0)
@@ -42,3 +52,8 @@ class TransferForm(Form):
         widgets = {
             'topup_value': forms.NumberInput()
         }
+
+class NewClanWalletForm(ModelForm):
+    class Meta:
+        model = ClanWallet
+        fields = ['name']
