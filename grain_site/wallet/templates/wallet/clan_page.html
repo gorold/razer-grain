@@ -46,27 +46,13 @@
             </div>
             <div class="tab-pane fade" id="examplePill" role="tabpanel" aria-labelledby="example-pill">
               <h5 class="card-title">Clan Members</h5>
-
-              <!--               <img class="img-profile rounded-circle" src="{% static 'hbyong.jpg' %}">
-              <img class="img-profile rounded-circle" src="{% static 'hbyong.jpg' %}"> -->
-
               <div class='row'>
+                {% for member in clan_members %}
                 <div class='m-3'>
-                  <img src="{% static 'hbyong.jpg' %}" class="img-fluid img-profile rounded-circle" alt="smaple image">
-                  <p class="white-text text-center"> Hua Bing</p>
+                  <img src="{% static 'unknown-person.png' %}" class="img-fluid img-profile rounded-circle" alt="sample image" width="90px">
+                  <p class="white-text text-center">{{member.first_name}} {{member.last_name}}</p>
                 </div>
-                <div class='m-3'>
-                  <img src="{% static 'gwoo.jpg' %}" class="img-fluid img-profile rounded-circle" alt="smaple image">
-                  <p class="white-text text-center"> Gerald</p>
-                </div>
-                <div class='m-3'>
-                  <img src="{% static 'weekiat.jpg' %}" class="img-fluid img-profile rounded-circle" alt="smaple image">
-                  <p class="white-text text-center"> Wee Kiat</p>
-                </div>
-                <div class='m-3'>
-                  <img src="{% static 'ryan.jpg' %}" class="img-fluid img-profile rounded-circle" alt="smaple image">
-                  <p class="white-text text-center"> Ryan </p>
-                </div>
+                {% endfor %}
               </div>
             </div>
           </div>
@@ -107,8 +93,13 @@
             <div class=" float-right">
               <button class="btn btn-success" type="button" data-toggle="modal" data-target="#topup-{{c_wallet.slug}}">
                 Top Up </button>
-              <button class="btn btn-success" type="button" data-toggle="modal" data-target="#withdrawModalCenter">
+              {% if c_wallet.is_admin %}
+              <button class="btn btn-success" type="button" data-toggle="modal" data-target="#withdraw-{{c_wallet.slug}}">
                 Withdraw </button>
+              {% else %}
+              <button class="btn btn-success" type="button" data-toggle="modal" data-target="#">
+                Withdraw </button>
+              {% endif %}
             </div>
           </div>
         </div>
@@ -117,9 +108,14 @@
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
 
-              <span class="badge badge-success">VISIBLE</span>
-              <span class="badge badge-success">CAN DEPOSIT</span>
-              <span class="badge badge-dark">CANNOT WITHDRAW</span>
+              <!-- <span class="badge badge-success">VISIBLE</span> -->
+              <span class="badge badge-success">TOPUP</span>
+              {% if c_wallet.is_admin %}
+              <span class="badge badge-success">WITHDRAW</span>
+              {% else %}
+              <span class="badge badge-secondary">WITHDRAW</span>
+              {% endif %}
+
               <div class="h5 mb-0 font-weight-bold text-gray-800">${{c_wallet.value}}</div>
               <!-- IF C WALLET HAS GOAL/LIMIT RENDER A PROGRESS BAR -->
               {% if c_wallet.have_target %}
@@ -145,27 +141,49 @@
       </div>
     </div>
 
-    <!-- Deposit Widget Modal-->
+    <!-- Topup Widget Modal-->
   <div class="modal fade" id="topup-{{c_wallet.slug}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Top Up into this Wallet</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span
+              aria-hidden="true">×</span></button>
+        </div>
+        <div class="modal-body">
+          <form method="POST">
+            {% csrf_token %}
+            {{ topup_clan_wallet.as_p }}
+            <button name="submit-topup-clan-wallet-{{c_wallet.slug}}" formaction="{% url 'clanwallet_topup' current_clan.slug c_wallet.slug %}" class="btn btn-success btn-user btn-block" type="submit">Top
+              Up!</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Withdrawal Widget Modal-->
+<div class="modal fade" id="withdraw-{{c_wallet.slug}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Top Up into this Wallet</h5>
+        <h5 class="modal-title" id="exampleModalCenterTitle">Withdraw from this Wallet</h5>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span
             aria-hidden="true">×</span></button>
       </div>
       <div class="modal-body">
         <form method="POST">
           {% csrf_token %}
-          {{ topup_clan_wallet.as_p }}
-          <button name="submit-topup-clan-wallet-{{c_wallet.slug}}" formaction="{% url 'clanwallet' current_clan.slug c_wallet.slug %}" class="btn btn-success btn-user btn-block" type="submit">Top
-            Up!</button>
+            {{ withdraw_clan_wallet.as_p }}
+          <button name="submit-topup-clan-wallet-{{c_wallet.slug}}" formaction="{% url 'clanwallet_withdraw' current_clan.slug c_wallet.slug %}" class="btn btn-success btn-user btn-block"
+            type="submit">Withdraw!</button>
         </form>
       </div>
     </div>
   </div>
-  </div>
+</div>
     {% endfor %}
 
 
@@ -214,12 +232,13 @@
               </div>
 
                 <!-- IF C WALLET HAS GOAL/LIMIT RENDER A PROGRESS BAR -->
-
-                <div class="h5 mb-0 font-weight-bold text-gray-800 text-right">$200.00/500.00 (FUNDING TARGET)</div>
+                {% if c_wallet.have_target %}
+                <div class="h5 mb-0 font-weight-bold text-gray-800 text-right">${{c_wallet.value}}/{{c_wallet.target}} (FUNDING TARGET)</div>
                 <div class="progress">
                   <!-- calculate progress in backend? -->
-                  <div class="progress-bar progress-bar-striped progress-bar-animated bg-dark" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"><h7 class='text-right'>40 %  </h7></div>
+                  <div class="progress-bar progress-bar-striped progress-bar-animated bg-dark" role="progressbar" style="width: {{c_wallet.percent}}%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"><h7 class='text-right'>{{c_wallet.percent}} %  </h7></div>
                 </div>
+                {% endif %}
               </div>
             </div>
 
@@ -276,26 +295,6 @@
       <div class="modal-footer">
         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
         <a class="btn btn-primary" href="{% url 'logout' %}?next={% url 'login' %}">Logout</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Withdrawal Widget Modal-->
-<div class="modal fade" id="withdrawModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Withdraw from this Wallet</h5>
-        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span
-            aria-hidden="true">×</span></button>
-      </div>
-      <div class="modal-body">
-        <form method="POST">
-          <button name="submit-withdraw-clan-wallet" class="btn btn-success btn-user btn-block"
-            type="submit">Create!</button>
-        </form>
       </div>
     </div>
   </div>

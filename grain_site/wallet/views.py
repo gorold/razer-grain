@@ -8,7 +8,7 @@ from django.utils.translation import gettext as _
 from django.template.defaultfilters import slugify
 
 from .forms import *
-from .models import Profile, IndividualWallet, Clan, ClanWallet
+from .models import *
 
 @login_required
 def main(request):
@@ -31,6 +31,7 @@ def main(request):
                 credit_card_number = new_wallet.cleaned_data.get('credit_card_number')
                 w = IndividualWallet.objects.create(name=wallet_name, user=request.user, value=0)
                 w.save()
+                individual_wallets = IndividualWallet.objects.filter(user=request.user)
             else:
                 pass
 
@@ -56,7 +57,7 @@ def main(request):
                 c.save()
             else:
                 pass
-    
+
     return HttpResponse(render(request, 'wallet/home.html', context={
         'user': request.user,
         'wallets': individual_wallets,
@@ -102,25 +103,24 @@ def register(request):
 def wallet(request, wslug):
     individual_wallets = IndividualWallet.objects.filter(user=request.user)
     current_wallet = IndividualWallet.objects.get(user=request.user, slug=wslug)
+
+    topup = TopupForm
+    transfer = TransferForm
     if request.method == "POST":
         if 'submit-topup' in request.POST:
             topup = TopupForm(request.POST)
-            transfer = TransferForm
             if topup.is_valid():
                 current_wallet.value += topup.cleaned_data.get('value')
                 current_wallet.save()
             else:
                 pass
         elif 'submit-transfer' in request.POST:
-            topup = TopupForm
             transfer = TransferForm(request.POST)
             if transfer.is_valid():
                 pass
             else:
                 pass
-    else:
-        topup = TopupForm
-        transfer = TransferForm
+
     return HttpResponse(render(request, 'wallet/wallet_page.html', context={
         'user': request.user,
         'wallets': individual_wallets,
@@ -137,6 +137,7 @@ def clan(request, cslug):
     clan_wallets = ClanWallet.objects.filter(clan=current_clan)
     
     topup_clan_wallet = ClanWalletTopupForm(request.user)
+    withdraw_clan_wallet = ClanWalletWithdrawForm(request.user)
     new_clan_wallet = NewClanWalletForm
 
     if request.method == "POST":
@@ -149,21 +150,29 @@ def clan(request, cslug):
                 target = new_clan_wallet.cleaned_data.get('target')
                 c = ClanWallet.objects.create(clan=current_clan, name=wallet_name, value=0.0, have_target=have_target, target=target)
                 c.save()
+                ClanWalletAdmin.objects.create(clanwallet=c, user=request.user).save()
+
             else:
                 pass
+    
+    for cw in clan_wallets:
+        if ClanWalletAdmin.objects.filter(clanwallet=cw).filter(user=request.user).exists():
+            cw.is_admin = True
 
     return HttpResponse(render(request, 'wallet/clan_page.html', context={
         'user': request.user,
         'wallets': individual_wallets,
         'clans': request.user.clan_set.all(),
         'current_clan': current_clan,
+        'clan_members': current_clan.members.all(),
         'clan_wallets': clan_wallets,
         'topup_clan_wallet': topup_clan_wallet,
+        'withdraw_clan_wallet': withdraw_clan_wallet,
         'new_clan_wallet': new_clan_wallet,
     }))
 
 @login_required
-def clanwallet(request, cslug, cwslug):
+def clanwallet_topup(request, cslug, cwslug):
     individual_wallets = IndividualWallet.objects.filter(user=request.user)
     current_clan = request.user.clan_set.all().filter(slug=cslug).first()
     clan_wallets = ClanWallet.objects.filter(clan=current_clan)
@@ -186,6 +195,29 @@ def clanwallet(request, cslug, cwslug):
 
     return redirect('/clan/'+cslug)
 
+@login_required
+def clanwallet_withdraw(request, cslug, cwslug):
+    individual_wallets = IndividualWallet.objects.filter(user=request.user)
+    current_clan = request.user.clan_set.all().filter(slug=cslug).first()
+    clan_wallets = ClanWallet.objects.filter(clan=current_clan)
+    current_clan_wallet = clan_wallets.filter(slug=cwslug).first()
+
+    if request.method == "POST":
+        withdraw_clan_wallet = ClanWalletWithdrawForm(request.user, request.POST)
+        if withdraw_clan_wallet.is_valid():
+            my_wallet = withdraw_clan_wallet.cleaned_data.get('my_wallets')
+            amount = withdraw_clan_wallet.cleaned_data.get('amount')
+            iw = individual_wallets.filter(name=my_wallet.name).first()
+            if current_clan_wallet.value >= amount:
+                iw.value += amount
+                iw.save()
+                current_clan_wallet.value -= amount
+                current_clan_wallet.save()
+
+            else:
+                pass        
+
+    return redirect('/clan/'+cslug)
 
 @login_required
 def under_construction(request):

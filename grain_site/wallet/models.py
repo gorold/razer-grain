@@ -62,6 +62,9 @@ class Clan(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Clan, self).save(*args, **kwargs)
+    
+    def __str__(self):
+        return self.name
 
 class ClanWallet(models.Model):
     name = models.CharField(max_length=200)
@@ -81,3 +84,12 @@ class ClanWallet(models.Model):
             self.percent = (self.value / self.target) * 100
         super(ClanWallet, self).save(*args, **kwargs)
 
+class ClanWalletAdmin(models.Model):
+    clanwallet = models.ForeignKey(
+        ClanWallet,
+        on_delete=models.CASCADE,
+    )
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+    )
