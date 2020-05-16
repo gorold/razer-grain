@@ -8,7 +8,7 @@ from django.utils.translation import gettext as _
 
 from .forms import SignUpForm
 
-from .models import Profile, IndividualWallet, Guild
+from .models import Profile, IndividualWallet, Clan
 
 @login_required
 def main(request):
@@ -16,6 +16,7 @@ def main(request):
     return HttpResponse(render(request, 'wallet/home.html', context={
         'user': request.user,
         'wallet': individualwallet,
+        'clans': request.user.clan_set.all(),
     }))
 
 def register(request):
@@ -50,21 +51,19 @@ def register(request):
         'form': form
     })
 
+@login_required
 def wallet(request):
-    if request.user.is_authenticated:
-        return HttpResponse(render(request, 'wallet/wallet_page.html'))
-    else:
-        return redirect('accounts/login')
+    return HttpResponse(render(request, 'wallet/wallet_page.html'))
 
+@login_required
+def topup(request):
+    pass
+
+@login_required
 def clan(request):
-    if request.user.is_authenticated:
-        return HttpResponse(render(request, 'wallet/clan_page.html'))
-    else:
-        return redirect('accounts/login')
+    return HttpResponse(render(request, 'wallet/clan_page.html'))
 
+@login_required
 def under_construction(request):
-    if request.user.is_authenticated:
-        return HttpResponse(render(request, 'wallet/under_construction.html'))
-    else:
-        return redirect('accounts/login')
+    return HttpResponse(render(request, 'wallet/under_construction.html'))
             

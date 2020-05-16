@@ -14,13 +14,15 @@ class SignUpForm(UserCreationForm):
     nric = forms.CharField(max_length=9, required=True)
     country = CountryField().formfield(required=True)
     date_of_birth = forms.DateField(widget=DateInput(attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}), required=True)    
-    
+
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email', 'username', 'password1', 'password2', 'nric', 'country', 'date_of_birth']
 
-# class IndividualWalletForm(ModelForm):
+class TransactionForm(Form):
+    topup_value = forms.FloatField(min_value=0)
 
-#     class Meta:
-#         model = IndividualWallet
-#         fields = 
+    class Meta:
+        widgets = {
+            'topup_value': forms.NumberInput()
+        }

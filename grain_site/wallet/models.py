@@ -16,7 +16,6 @@ class Profile(models.Model):
     nric = models.CharField(max_length=9, verbose_name="NRIC")
     date_of_birth = models.DateField(null=True, verbose_name="Date of Birth")
     country = CountryField()
-    
 
 class IndividualWallet(models.Model):
     user = models.OneToOneField(
@@ -38,13 +37,15 @@ def update_user_profile(sender, instance, **kwargs):
     instance.profile.save()
     instance.individualwallet.save()
 
-class Guild(models.Model):
-    guild_name = models.CharField(max_length=200)
+class Clan(models.Model):
+    clan_name = models.CharField(max_length=200)
+    public = models.BooleanField()
+    members = models.ManyToManyField(User)
 
-class GuildWallet(models.Model):
+class ClanWallet(models.Model):
     wallet_name = models.CharField(max_length=200)
-    guild = models.ForeignKey(
-        Guild,
+    clan = models.ForeignKey(
+        Clan,
         on_delete=models.CASCADE,
     )
-
+    value = models.FloatField(null=True)

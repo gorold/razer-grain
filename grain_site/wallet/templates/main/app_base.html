@@ -67,13 +67,24 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Private Clans</h6>
-            <a class="collapse-item" href="{% url 'clan' %}">Yong Family Wallets</a>
-            <a class="collapse-item" href="{% url 'clan' %}">DOTA Kakis</a>
-            <a class="collapse-item" href="{% url 'clan' %}">Vacation Buddies</a>
+            {% for clan in clans %}
+              {% if clan.public %}
+              {% else %}
+                <a class="collapse-item" href="#">{{clan.clan_name}}</a>
+              {% endif %}
+              <!-- <a class="collapse-item" href="{% url 'clan' %}">Yong Family Wallets</a>
+              <a class="collapse-item" href="{% url 'clan' %}">DOTA Kakis</a>
+              <a class="collapse-item" href="{% url 'clan' %}">Vacation Buddies</a> -->
+            {% endfor %}
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Public Clans</h6>
-            <a class="collapse-item" href="{% url 'clan' %}">SMU Kopi Clubbers</a>
-            <a class="collapse-item" href="{% url 'clan' %}">SG Elites Clan</a>
+            {% for clan in clans %}
+                {% if clan.public %}
+                  <a class="collapse-item" href="#">{{clan.clan_name}}</a>
+                {% endif %}
+            {% endfor %}
+            <!-- <a class="collapse-item" href="{% url 'clan' %}">SMU Kopi Clubbers</a>
+            <a class="collapse-item" href="{% url 'clan' %}">SG Elites Clan</a> -->
             <div class="collapse-divider"></div>
           </div>
                     <div>
