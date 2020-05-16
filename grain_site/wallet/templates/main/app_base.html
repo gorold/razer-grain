@@ -45,8 +45,9 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-            <a class="collapse-item" href="{% url 'wallet' %}">Savings Wallet</a>
-            <a class="collapse-item" href="{% url 'wallet' %}">Spending Wallet</a>
+            {% for wallet in wallets %}
+              <a class="collapse-item" href="{% url 'wallet' wslug=wallet.slug %}">{{wallet.name}}</a>
+            {% endfor %}
           </div>
           <div>
           	<!-- Button trigger modal -->
@@ -71,9 +72,6 @@
               {% else %}
                 <a class="collapse-item" href="#">{{clan.clan_name}}</a>
               {% endif %}
-              <!-- <a class="collapse-item" href="{% url 'clan' %}">Yong Family Wallets</a>
-              <a class="collapse-item" href="{% url 'clan' %}">DOTA Kakis</a>
-              <a class="collapse-item" href="{% url 'clan' %}">Vacation Buddies</a> -->
             {% endfor %}
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Public Clans</h6>
@@ -82,8 +80,6 @@
                   <a class="collapse-item" href="#">{{clan.clan_name}}</a>
                 {% endif %}
             {% endfor %}
-            <!-- <a class="collapse-item" href="{% url 'clan' %}">SMU Kopi Clubbers</a>
-            <a class="collapse-item" href="{% url 'clan' %}">SG Elites Clan</a> -->
             <div class="collapse-divider"></div>
           </div>
                     <div>
