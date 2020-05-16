@@ -7,7 +7,7 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Welcome to your Razer Digital Bank Hua Bing!</h1>
+            <h1 class="h3 mb-0 text-gray-800">Welcome to your Razer Digital Bank {{user.first_name}}!</h1>
           </div>
 
           <!-- Content Row -->
@@ -20,7 +20,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">SAVINGS (Month to Date)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$400</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">${{wallet.value}}</div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -168,7 +168,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
         </div>
       </div>
     </div>
