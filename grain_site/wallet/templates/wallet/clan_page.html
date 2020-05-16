@@ -142,8 +142,8 @@
                       </button>
                       <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="dropdownMenuButton">
                           <a class="dropdown-item" href="{% url 'wallet' %}">View Wallet Details</a>
-                          <a class="dropdown-item btn-success" href="javascript:void(0);">Edit Permissions</a>
-                          <a class="dropdown-item" href="javascript:void(0);">Edit Wallet</a>
+                          <a class="dropdown-item btn-success" href="javascript:void(0);", type="button" data-toggle="modal" data-target="#editpermissionsexampleModalCenter">Edit Permissions</a>
+                          <a class="dropdown-item btn-success" href="javascript:void(0);", type="button" data-toggle="modal" data-target="#editwalletexampleModalCenter">Edit Wallet</a>
                       </div>
                       <div class=" float-right">
                         <button class="btn btn-success" type="button" data-toggle="modal" data-target="#depositModalCenter">    Deposit    </button>
@@ -170,7 +170,7 @@
               </div>
             </div>
 
-
+            <button class="btn btn-success btn-block" type="button" data-toggle="modal" data-target="#newwalletexampleModalCenter">Create a new Clan wallet</button>
 
 
         </div>
@@ -228,7 +228,7 @@
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">SOME FORM CONTENT</div>
-            <div class="modal-footer"><button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button><button class="btn btn-success" type="button">Save changes</button></div>
+            <div class="modal-footer"><button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button><button class="btn btn-success" type="button">Deposit</button></div>
         </div>
     </div>
 </div>
@@ -242,7 +242,7 @@
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">SOME FORM CONTENT</div>
-            <div class="modal-footer"><button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button><button class="btn btn-success" type="button">Save changes</button></div>
+            <div class="modal-footer"><button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button><button class="btn btn-success" type="button">Withdraw</button></div>
         </div>
     </div>
 </div>
