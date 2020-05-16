@@ -47,8 +47,23 @@
             <div class="tab-pane fade" id="examplePill" role="tabpanel" aria-labelledby="example-pill">
               <h5 class="card-title">Clan Members</h5>
 
-              <img class="img-profile rounded-circle" src="{% static 'hbyong.jpg' %}">
-              <img class="img-profile rounded-circle" src="{% static 'hbyong.jpg' %}">
+<!--               <img class="img-profile rounded-circle" src="{% static 'hbyong.jpg' %}">
+              <img class="img-profile rounded-circle" src="{% static 'hbyong.jpg' %}"> -->
+
+              <div class='row'>
+                <div class='m-3'>
+                  <img src="{% static 'hbyong.jpg' %}" class="img-fluid img-profile rounded-circle" alt="smaple image">
+                  <p class="white-text text-center"> USERNAME</p>
+                </div>
+                <div class='m-3'>
+                  <img src="{% static 'hbyong.jpg' %}" class="img-fluid img-profile rounded-circle" alt="smaple image">
+                  <p class="white-text text-center"> USERNAME</p>
+                </div>
+                <div class='m-3'>
+                  <img src="{% static 'hbyong.jpg' %}" class="img-fluid img-profile rounded-circle" alt="smaple image">
+                  <p class="white-text text-center"> USERNAME</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -99,7 +114,18 @@
                 <span class="badge badge-success">CAN DEPOSIT</span>
                 <span class="badge badge-secondary">CANNOT WITHDRAW</span>
                 <div class="h5 mb-0 font-weight-bold text-gray-800">${{c_wallet.value}}</div>
+                <!-- IF C WALLET HAS GOAL/LIMIT RENDER A PROGRESS BAR -->
+
+                <div class="h5 mb-0 font-weight-bold text-gray-800 text-right">$500.00 (TARGET OR MAX VALUE)</div>
+                <div class="progress">
+                  <!-- calculate progress in backend? -->
+                  <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><h7 class='text-right'>25 %  </h7></div>
+                </div>
+
               </div>
+              
+
+
               <div class="col-auto">
                 <i class="fas fa-calendar fa-2x text-gray-300"></i>
               </div>
