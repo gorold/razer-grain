@@ -127,3 +127,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+grain_site/wallet/migrations/0001_initial.py

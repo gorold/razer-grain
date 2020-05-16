@@ -77,6 +77,10 @@
 
   </div>
 
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Clan Wallets</h1>
+  </div>
+
   <!-- Content Row -->
   <div class="row">
 
@@ -87,6 +91,9 @@
         <div class="card card-header-actions border-left-success shadow h-100 py-2">
           <div class=" card-header font-weight-bold text-success text-uppercase">
             <a href="#">{{c_wallet.name}}</a>
+            <span class="badge badge-success">VISIBLE</span>
+            <span class="badge badge-success">CAN DEPOSIT</span>
+            <span class="badge badge-secondary">CANNOT WITHDRAW</span>
 
             <div class="dropdown no-caret float-right">
               <button class="btn btn-transparent-dark btn-icon dropdown-toggle" id="dropdownMenuButton" type="button"
@@ -114,9 +121,8 @@
             <div class="row no-gutters align-items-center">
               <div class="col mr-2">
 
-                <span class="badge badge-success">VISIBLE</span>
-                <span class="badge badge-success">CAN DEPOSIT</span>
-                <span class="badge badge-secondary">CANNOT WITHDRAW</span>
+                
+                
                 <div class="h5 mb-0 font-weight-bold text-gray-800">${{c_wallet.value}}</div>
                 <!-- IF C WALLET HAS GOAL/LIMIT RENDER A PROGRESS BAR -->
 
@@ -143,9 +149,71 @@
 
     <button class="btn btn-success btn-block" type="button" data-toggle="modal"
       data-target="#newwalletexampleModalCenter">Create a new Clan wallet</button>
+  
 
 
   </div>
+  <br>
+<!--   Community Lending -->
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Community Lending</h1>
+  </div>
+
+  <!-- Content Row -->
+  <div class="row">
+    <!-- will rereplaced with c_loan_wallets -->
+    {% for c_wallet in clan_wallets %}
+
+      <!-- Earnings (Monthly) Card Example -->
+      <div class="col-xl-12 col-md-6 mb-4">
+        <div class="card card-header-actions border-left-dark shadow h-100 py-2">
+          <div class=" card-header">
+            <a href="#"class="font-weight-bold text-dark text-uppercase">{{c_wallet.name}}</a> Lending to Gerald Woo | 
+            <span class="badge badge-dark ">ACCRUING INTEREST</span>
+            <span class="badge badge-dark m-1">TRUSTED BORROWER</span>
+            <div class="dropdown no-caret float-right">
+              <div class=" float-right">
+                <button class="btn btn-dark" type="button" data-toggle="modal" data-target="#depositModalCenter">
+                  Subscribe to Lending </button>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+              <div class="col mr-2">
+                <div class="row">
+
+                
+                <div class="text-center  m-2"><p class="h4 mb-0 font-weight-bold text-center text-gray-800">4.0%</p><br>Annualized Interest Rate</div>
+                <div class="text-center  m-2"><p class="h4 mb-0 font-weight-bold text-center text-gray-800">30 Days</p><br>Loan Duration</div>
+                
+              </div>
+
+                <!-- IF C WALLET HAS GOAL/LIMIT RENDER A PROGRESS BAR -->
+
+                <div class="h5 mb-0 font-weight-bold text-gray-800 text-right">$200.00/500.00 (FUNDING TARGET)</div>
+                <div class="progress">
+                  <!-- calculate progress in backend? -->
+                  <div class="progress-bar progress-bar-striped progress-bar-animated bg-dark" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"><h7 class='text-right'>40 %  </h7></div>
+                </div>
+              </div>
+            </div>
+
+            <hr>
+            Redeption Date: 2020-05-31 20:00:00
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+
+
+    <button class="btn btn-dark btn-block" type="button" data-toggle="modal"
+      data-target="#newwalletexampleModalCenter">Create a Borrowing wallet</button>
+
   <!-- /.container-fluid -->
 
 </div>

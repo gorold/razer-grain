@@ -23,7 +23,7 @@
   --cyan: #36b9cc;
   --white: #fff;
   --gray: #858796;
-  --gray-dark: #5a5c69;
+  --gray-dark: #000000;
   --primary: #4e73df;
   --secondary: #858796;
   --success: #00bd07;
@@ -31,7 +31,7 @@
   --warning: #f6c23e;
   --danger: #e74a3b;
   --light: #f8f9fc;
-  --dark: #5a5c69;
+  --dark: #000000;
   --breakpoint-xs: 0;
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
@@ -1615,7 +1615,7 @@ pre code {
 
 .table .thead-dark th {
   color: #fff;
-  background-color: #5a5c69;
+  background-color: #000000;
   border-color: #6c6e7e;
 }
 
@@ -1627,7 +1627,7 @@ pre code {
 
 .table-dark {
   color: #fff;
-  background-color: #5a5c69;
+  background-color: #000000;
 }
 
 .table-dark th,
@@ -2493,8 +2493,8 @@ fieldset:disabled a.btn {
 
 .btn-dark {
   color: #fff;
-  background-color: #5a5c69;
-  border-color: #5a5c69;
+  background-color: #000000;
+  border-color: #000000;
 }
 
 .btn-dark:hover {
@@ -2509,8 +2509,8 @@ fieldset:disabled a.btn {
 
 .btn-dark.disabled, .btn-dark:disabled {
   color: #fff;
-  background-color: #5a5c69;
-  border-color: #5a5c69;
+  background-color: #000000;
+  border-color: #000000;
 }
 
 .btn-dark:not(:disabled):not(.disabled):active, .btn-dark:not(:disabled):not(.disabled).active,
@@ -2750,14 +2750,14 @@ fieldset:disabled a.btn {
 }
 
 .btn-outline-dark {
-  color: #5a5c69;
-  border-color: #5a5c69;
+  color: #000000;
+  border-color: #000000;
 }
 
 .btn-outline-dark:hover {
   color: #fff;
-  background-color: #5a5c69;
-  border-color: #5a5c69;
+  background-color: #000000;
+  border-color: #000000;
 }
 
 .btn-outline-dark:focus, .btn-outline-dark.focus {
@@ -2765,15 +2765,15 @@ fieldset:disabled a.btn {
 }
 
 .btn-outline-dark.disabled, .btn-outline-dark:disabled {
-  color: #5a5c69;
+  color: #000000;
   background-color: transparent;
 }
 
 .btn-outline-dark:not(:disabled):not(.disabled):active, .btn-outline-dark:not(:disabled):not(.disabled).active,
 .show > .btn-outline-dark.dropdown-toggle {
   color: #fff;
-  background-color: #5a5c69;
-  border-color: #5a5c69;
+  background-color: #000000;
+  border-color: #000000;
 }
 
 .btn-outline-dark:not(:disabled):not(.disabled):active:focus, .btn-outline-dark:not(:disabled):not(.disabled).active:focus,
@@ -4817,7 +4817,7 @@ a.badge-light:focus, a.badge-light.focus {
 
 .badge-dark {
   color: #fff;
-  background-color: #5a5c69;
+  background-color: #000000;
 }
 
 a.badge-dark:hover, a.badge-dark:focus {
@@ -6274,7 +6274,7 @@ button.bg-light:focus {
 }
 
 .bg-dark {
-  background-color: #5a5c69 !important;
+  background-color: #000000 !important;
 }
 
 a.bg-dark:hover, a.bg-dark:focus,
@@ -6360,7 +6360,7 @@ button.bg-dark:focus {
 }
 
 .border-dark {
-  border-color: #5a5c69 !important;
+  border-color: #000000 !important;
 }
 
 .border-white {
@@ -9419,7 +9419,7 @@ a.text-light:hover, a.text-light:focus {
 }
 
 .text-dark {
-  color: #5a5c69 !important;
+  color: #000000 !important;
 }
 
 a.text-dark:hover, a.text-dark:focus {
@@ -9601,7 +9601,7 @@ a:focus {
 }
 
 .scroll-to-top:hover {
-  background: #5a5c69;
+  background: #000000;
 }
 
 .scroll-to-top i {
@@ -9709,8 +9709,8 @@ a:focus {
 }
 
 .bg-gradient-dark {
-  background-color: #5a5c69;
-  background-image: linear-gradient(180deg, #5a5c69 10%, #373840 100%);
+  background-color: #000000;
+  background-image: linear-gradient(180deg, #000000 10%, #373840 100%);
   background-size: cover;
 }
 
@@ -9743,7 +9743,7 @@ a:focus {
 }
 
 .bg-gray-800 {
-  background-color: #5a5c69 !important;
+  background-color: #000000 !important;
 }
 
 .bg-gray-900 {
@@ -9791,7 +9791,7 @@ a:focus {
 }
 
 .text-gray-800 {
-  color: #5a5c69 !important;
+  color: #000000 !important;
 }
 
 .text-gray-900 {
@@ -9864,11 +9864,11 @@ a:focus {
 }
 
 .border-left-dark {
-  border-left: 0.25rem solid #5a5c69 !important;
+  border-left: 0.25rem solid #000000 !important;
 }
 
 .border-bottom-dark {
-  border-bottom: 0.25rem solid #5a5c69 !important;
+  border-bottom: 0.25rem solid #000000 !important;
 }
 
 .progress-sm {
@@ -10686,7 +10686,7 @@ form.user .btn-user {
 }
 
 .error {
-  color: #5a5c69;
+  color: #000000;
   font-size: 7rem;
   position: relative;
   line-height: 1;
@@ -10831,7 +10831,7 @@ form.user .btn-user {
   left: 2px;
   text-shadow: -1px 0 #e74a3b;
   top: 0;
-  color: #5a5c69;
+  color: #000000;
   background: #f8f9fc;
   overflow: hidden;
   clip: rect(0, 900px, 0, 0);
@@ -10976,7 +10976,7 @@ form.user .btn-user {
   left: -2px;
   text-shadow: 1px 0 #4e73df;
   top: 0;
-  color: #5a5c69;
+  color: #000000;
   background: #f8f9fc;
   overflow: hidden;
   clip: rect(0, 900px, 0, 0);
