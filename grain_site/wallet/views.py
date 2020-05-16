@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext as _
+from django.template.defaultfilters import slugify
 
 from .forms import SignUpForm
 
@@ -12,10 +13,14 @@ from .models import Profile, IndividualWallet, Clan
 
 @login_required
 def main(request):
-    individualwallet = IndividualWallet.objects.get(user=request.user)
+    individual_wallets = IndividualWallet.objects.filter(user=request.user)
+    savings = 0.0
+    for wallet in individual_wallets:
+        savings += wallet.value
     return HttpResponse(render(request, 'wallet/home.html', context={
         'user': request.user,
-        'wallet': individualwallet,
+        'wallets': individual_wallets,
+        'savings': savings,
         'clans': request.user.clan_set.all(),
     }))
 
@@ -31,7 +36,6 @@ def register(request):
             user.profile.nric = form.cleaned_data.get('nric')
             user.profile.country = form.cleaned_data.get('country')
             user.profile.date_of_birth = form.cleaned_data.get('date_of_birth')
-            user.individualwallet.value = 0
             # -------- Delete: Make admin ----------
             user.is_staff = True
             user.is_admin = True
@@ -52,8 +56,14 @@ def register(request):
     })
 
 @login_required
-def wallet(request):
-    return HttpResponse(render(request, 'wallet/wallet_page.html'))
+def wallet(request, wslug):
+    individual_wallets = IndividualWallet.objects.filter(user=request.user)
+    current_wallet = IndividualWallet.objects.get(user=request.user, slug=wslug)
+    return HttpResponse(render(request, 'wallet/wallet_page.html', context={
+        'user': request.user,
+        'wallets': individual_wallets,
+        'current_w': current_wallet,
+    }))
 
 @login_required
 def topup(request):

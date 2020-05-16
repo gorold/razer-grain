@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django_countries.fields import CountryField
+from django.template.defaultfilters import slugify
 
 class Profile(models.Model):
     user = models.OneToOneField(
@@ -17,35 +18,58 @@ class Profile(models.Model):
     date_of_birth = models.DateField(null=True, verbose_name="Date of Birth")
     country = CountryField()
 
-class IndividualWallet(models.Model):
-    user = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-    )
-    value = models.FloatField(null=True)
-
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
-        IndividualWallet.objects.create(user=instance)
     instance.profile.save()
-    instance.individualwallet.save()
 
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, **kwargs):
     instance.profile.save()
-    instance.individualwallet.save()
+
+class IndividualWallet(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+    )
+    name = models.CharField(max_length=200)
+    value = models.FloatField(null=True)
+    slug = models.CharField(max_length=200, null=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(IndividualWallet, self).save(*args, **kwargs)
+
+class IndividualTransactions(models.Model):
+    wallet = models.ForeignKey(
+        IndividualWallet,
+        on_delete=models.CASCADE,
+    )
+    date = models.DateField(null=True)
+    transaction_type = models.CharField(max_length=200)
+    notes = models.CharField(max_length=200)
 
 class Clan(models.Model):
-    clan_name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
     public = models.BooleanField()
     members = models.ManyToManyField(User)
+    slug = models.CharField(max_length=200, null=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Clan, self).save(*args, **kwargs)
 
 class ClanWallet(models.Model):
-    wallet_name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
     clan = models.ForeignKey(
         Clan,
         on_delete=models.CASCADE,
     )
     value = models.FloatField(null=True)
+    slug = models.CharField(max_length=200, null=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(ClanWallet, self).save(*args, **kwargs)
+
