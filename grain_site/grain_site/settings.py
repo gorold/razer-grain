@@ -124,5 +124,5 @@ STATIC_DIRS = (
 )
 
 # DO NOT STORE HERE FOR PRODUCTION
-KYC_URL = "https://niw1itg937.execute-api.ap-southeast-1.amazonaws.com/Prod/verify"
-KYC_KEY = "WrF1svUKsH5aA6q9sC5s"
+KYC_URL = "<FWD_URL>"
+KYC_KEY = "<X_API_KEY>"
