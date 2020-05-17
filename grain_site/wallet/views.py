@@ -127,6 +127,8 @@ def register(request):
                 messages.error(request, _("Failed to register!"))
 
     else:
+        storage = messages.get_messages(request)
+        storage.used = True
         form = SignUpForm
     return render(request, 'registration/register.html', context={
         'form': form

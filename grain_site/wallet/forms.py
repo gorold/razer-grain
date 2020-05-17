@@ -47,14 +47,14 @@ class AddClanMemberForm(Form):
     username = forms.CharField(max_length=200)
 
 class TopupForm(Form):
-    value = forms.FloatField(min_value=0, validators=[numerals])
+    value = forms.FloatField(min_value=0)
     class Meta:
         widgets = {
             'topup_value': forms.NumberInput()
         }
 
 class TransferForm(Form):
-    value = forms.FloatField(min_value=0, validators=[numerals])
+    value = forms.FloatField(min_value=0)
     to_account = forms.CharField(label='Account', max_length=200, required=True)
     class Meta:
         widgets = {
